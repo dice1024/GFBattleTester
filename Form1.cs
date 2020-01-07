@@ -1595,7 +1595,7 @@ namespace GFBattleTester
               gunid_5_combobox.SelectedIndex == gunid_1_combobox.SelectedIndex*/
               false)
             {
-                MessageBox.Show("같은 인형을 여러명 배속할 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("같은 인형을 여러명 배속할 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (duplicated)
             {
@@ -3369,116 +3369,116 @@ namespace GFBattleTester
 
         private void openFileDialog3_FileOk(object sender, CancelEventArgs e)
         {
-            Load_Equip_Info_From_File(openFileDialog3.FileName, echelon_select.SelectedIndex);
+            Load_Equip_Info_From_File(openFileDialog3.FileName);
         }
-        public void Load_Equip_Info_From_File(string path, int echelon)
+        public void Load_Equip_Info_From_File(string path)
         {
-            string eh = (echelon + 1).ToString();
-            JObject eq = JObject.Parse(File.ReadAllText(path));
-            foreach (string a in Equippos)
+            JObject b = new JObject();
+            JObject aa = JObject.Parse(File.ReadAllText("data/json/t.json"));
+            for (int k = 1; k <= 6; k++)
             {
-
-                if (eq[a] != null)
+                for (int i = 1; i <= 5; i++)
                 {
-                    this.Controls.Find("setEquip_" + a, true)[0].Text = equipName[equipID.IndexOf(eq[a]["equip_id"].ToString())];
-
-                    /*
-                    for(int i=1; i <= 5; i++)
+                    for (int p = 1; p <= 3; p++)
                     {
-                        for(int k=1; k<=3; k++)
+                        int cn = int.Parse(k.ToString() + i.ToString() + p.ToString());
+                        aa["id"] = cn.ToString();
+                        b.Add(cn.ToString(), aa);
+                    }
+                }
+            }
+            Clipboard.SetText(b.ToString());
+            JObject eq = JObject.Parse(File.ReadAllText(path));
+            string[] equippos = Equippos;
+            foreach (string a in equippos)
+            {
+                if (eq[a] == null)
+                {
+                    continue;
+                }
+                base.Controls.Find("setEquip_" + a, searchAllChildren: true)[0].Text = equipName[equipID.IndexOf(eq[a]["equip_id"].ToString())];
+                for (int j = 0; j < gun_eh_array.Count(); j++)
+                {
+                    if (gun_eh_array[j]["id"].ToString() == gun_user_id[echelon_select.SelectedIndex, 0].ToString())
+                    {
+                        if (a == "11")
                         {
-                            int cn = int.Parse(i.ToString() + k.ToString());
-                            
+                            gun_eh_array[j]["equip1"] = a;
                         }
-                    }*/
-
-
-
-                    if (a == "11")
-                    {
-                        for(int i=0;i< gun_eh_array.Count(); i++)
+                        else if (a == "12")
                         {
-                            if(gun_eh_array[i]["id"].ToString() == gun_user_id[echelon, 0].ToString())
-                            {
-                                 gun_eh_array[i]["equip1"] = a;
-                            }
+                            gun_eh_array[j]["equip2"] = a;
                         }
-                       
+                        else if (a == "13")
+                        {
+                            gun_eh_array[j]["equip3"] = a;
+                        }
                     }
-                    else if (a == "12")
+                    else if (gun_eh_array[j]["id"].ToString() == gun_user_id[echelon_select.SelectedIndex, 1].ToString())
                     {
-                        gun_eh_array[i]["equip2"] = a;
+                        if (a == "21")
+                        {
+                            gun_eh_array[j]["equip1"] = a;
+                        }
+                        else if (a == "22")
+                        {
+                            gun_eh_array[j]["equip2"] = a;
+                        }
+                        else if (a == "23")
+                        {
+                            gun_eh_array[j]["equip3"] = a;
+                        }
                     }
-                    else if (a == "13")
+                    else if (gun_eh_array[j]["id"].ToString() == gun_user_id[echelon_select.SelectedIndex, 2].ToString())
                     {
-                        gun_eh_array[i]["equip3"] = a;
+                        if (a == "31")
+                        {
+                            gun_eh_array[j]["equip1"] = a;
+                        }
+                        else if (a == "32")
+                        {
+                            gun_eh_array[j]["equip2"] = a;
+                        }
+                        else if (a == "33")
+                        {
+                            gun_eh_array[j]["equip3"] = a;
+                        }
                     }
-
-                    if (a == "21")
+                    else if (gun_eh_array[j]["id"].ToString() == gun_user_id[echelon_select.SelectedIndex, 3].ToString())
                     {
-                        gun_eh_array[i]["equip1"] = a;
+                        if (a == "41")
+                        {
+                            gun_eh_array[j]["equip1"] = a;
+                        }
+                        else if (a == "42")
+                        {
+                            gun_eh_array[j]["equip2"] = a;
+                        }
+                        else if (a == "43")
+                        {
+                            gun_eh_array[j]["equip3"] = a;
+                        }
                     }
-                    else if (a == "22")
+                    else if (gun_eh_array[j]["id"].ToString() == gun_user_id[echelon_select.SelectedIndex, 4].ToString())
                     {
-                        gun_eh_array[i]["equip2"] = a;
+                        if (a == "51")
+                        {
+                            gun_eh_array[j]["equip1"] = a;
+                        }
+                        else if (a == "52")
+                        {
+                            gun_eh_array[j]["equip2"] = a;
+                        }
+                        else if (a == "53")
+                        {
+                            gun_eh_array[j]["equip3"] = a;
+                        }
                     }
-                    else if (a == "23")
-                    {
-                        gun_eh_array[i]["equip3"] = a;
-                    }
-
-
-
-                    if (a == "31")
-                    {
-                        gun_eh_array[i]["equip1"] = a;
-                    }
-                    else if (a == "32")
-                    {
-                        gun_eh_array[i]["equip2"] = a;
-                    }
-                    else if (a == "33")
-                    {
-                        gun_eh_array[i]["equip3"] = a;
-                    }
-
-
-
-                    if (a == "41")
-                    {
-                        gun_eh_array[i]["equip1"] = a;
-                    }
-                    else if (a == "42")
-                    {
-                        gun_eh_array[i]["equip2"] = a;
-                    }
-                    else if (a == "43")
-                    {
-                        gun_eh_array[i]["equip3"] = a;
-                    }
-
-
-                    if (a == "51")
-                    {
-                        gun_eh_array[i]["equip1"] = a;
-                    }
-                    else if (a == "52")
-                    {
-                        gun_eh_array[i]["equip2"] = a;
-                    }
-                    else if (a == "53")
-                    {
-                        gun_eh_array[i]["equip3"] = a;
-                    }
-
-
-
-
                 }
             }
             userinfo["equip_with_user_info"].Replace(eq);
             label121.Text = Path.GetFileName(path);
-            SetGunInfo(false, echelon);
+            SetGunInfo(showMessageBox: false, echelon_select.SelectedIndex);
         }
         private void button17_Click(object sender, EventArgs e)
         {

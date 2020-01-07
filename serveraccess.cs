@@ -145,7 +145,7 @@ namespace GFBattleTester
         {
             ListView.SelectedListViewItemCollection items = listView1.SelectedItems;
             ListViewItem subitem = items[0];
-            Form1.frm.Load_Gun_Info_fromfilepath(gun_path[int.Parse(subitem.SubItems[0].Text)-1]);
+            Form1.frm.Load_Gun_Info_fromfilepath(gun_path[int.Parse(subitem.SubItems[0].Text) - 1]);
             if (checkBox1.Checked)
             {
                 Form1.frm.Load_Equip_Info_From_File(equip_path[int.Parse(subitem.SubItems[0].Text) - 1]);
